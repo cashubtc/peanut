@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "nutter",
-    "slug": "nutter",
-    "version": "1.0.0",
+    "name": "peanut-purse",
+    "slug": "peanut-purse",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
