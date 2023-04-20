@@ -4,9 +4,10 @@ import colors from './colors';
 const globalStyles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 12,
     backgroundColor: colors.slate800,
     alignItems: 'center',
+    paddingTop: 20
   },
   textBody: {
     fontFamily: 'Montserrat-Regular',

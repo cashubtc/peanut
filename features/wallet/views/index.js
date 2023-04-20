@@ -1,2 +1,3 @@
-export { default as ReceiveScreen } from './ReceiveScreen';
-export { default as WalletHome } from './WalletHome';
+export { default as WalletReceiveScreen } from './WalletReceiveScreen';
+export { default as WalletHomeScreen } from './WalletHomeScreen';
+export { default as WalletSendScreen } from './WalletSendScreen';

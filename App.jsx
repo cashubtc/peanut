@@ -1,13 +1,14 @@
+/* eslint-disable global-require */
 /* eslint-disable react/style-prop-object */
 import 'text-encoding-polyfill';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { loadAsync } from 'expo-font';
 import React, { useCallback, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
-import { initWallet, wallet } from './mint';
+import { initWallet } from './mint';
 import MainNav from './nav/MainNav';
 import { store } from './store';
 import { hydrateStoreFromDatabase, initDatabase } from './utils/database';
@@ -23,10 +24,10 @@ const App = () => {
         await initDatabase();
         hydrateStoreFromDatabase();
         await loadAsync({
-          "Montserrat-Regular": require("./assets/Montserrat-Regular.ttf"),
-          "Montserrat-Bold": require("./assets/Montserrat-Bold.ttf"),
-          "Satoshi-Symbol": require("./assets/Satoshi-Symbol.ttf"),
-      });
+          'Montserrat-Regular': require('./assets/Montserrat-Regular.ttf'),
+          'Montserrat-Bold': require('./assets/Montserrat-Bold.ttf'),
+          'Satoshi-Symbol': require('./assets/Satoshi-Symbol.ttf'),
+        });
       } catch (e) {
         console.warn(e);
       } finally {

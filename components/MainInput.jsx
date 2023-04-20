@@ -2,7 +2,7 @@ import { TextInput } from 'react-native';
 import React from 'react';
 import colors from '../colors';
 
-const MainInput = ({ onChangeText, style }) => (
+const MainInput = ({ onChangeText, style, placeholder, type }) => (
   <TextInput
     style={[
       {
@@ -17,8 +17,8 @@ const MainInput = ({ onChangeText, style }) => (
       },
       style,
     ]}
-    placeholder="Amount in Sats"
-    keyboardType="numeric"
+    placeholder={placeholder}
+    keyboardType={type}
     onChangeText={onChangeText}
   />
 );

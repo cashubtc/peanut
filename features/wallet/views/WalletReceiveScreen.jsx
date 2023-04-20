@@ -8,7 +8,7 @@ import { wallet } from '../../../mint';
 import { addProofs } from '../../proofs/proofSlice';
 import { addProofToDatabase } from '../../../utils/database';
 
-const ReceiveAmount = ({ navigation }) => {
+const WalletReceiveScreen = ({ navigation }) => {
   const [paymentRequest, setpaymentRequest] = useState();
   const [paymentHash, setpaymentHash] = useState();
   const [amount, setAmount] = useState();
@@ -75,7 +75,12 @@ const ReceiveAmount = ({ navigation }) => {
         onLayout={onLayout}
       >
         <View style={{ width: '80%' }}>
-          <MainInput onChangeText={setAmount} style={{ marginBottom: 12 }} />
+          <MainInput
+            onChangeText={setAmount}
+            style={{ marginBottom: 12 }}
+            type="numeric"
+            placeholder="Amount in SATS"
+          />
           <MainButton onPress={getInvoice} text="Create Invoice" />
         </View>
         {width ? (
@@ -86,4 +91,4 @@ const ReceiveAmount = ({ navigation }) => {
   );
 };
 
-export default ReceiveAmount;
+export default WalletReceiveScreen;

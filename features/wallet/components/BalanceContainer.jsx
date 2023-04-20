@@ -1,14 +1,16 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import globalStyles from '../../../globalStyles';
+import useBalance from '../../proofs/hooks/useBalance';
 
 const BalanceContainer = () => {
-  const proofs = useSelector((state) => state.proof.proofs);
-  const amount = proofs.reduce((a, c) => a + c.amount, 0);
+  const amount = useBalance();
   return (
     <View>
-      <Text style={globalStyles.textH1}>{amount} <Text style={{fontFamily: 'Satoshi-Symbol'}}>S</Text></Text>
+      <Text style={globalStyles.textH1}>
+        {`${amount} `}
+        <Text style={{ fontFamily: 'Satoshi-Symbol' }}>S</Text>
+      </Text>
     </View>
   );
 };
