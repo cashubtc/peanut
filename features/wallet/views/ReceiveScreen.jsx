@@ -6,6 +6,7 @@ import MainInput from '../../../components/MainInput';
 import { CustomQRCode, MainButton } from '../../../components';
 import { wallet } from '../../../mint';
 import { addProofs } from '../../proofs/proofSlice';
+import { addProofToDatabase } from '../../../utils/database';
 
 const ReceiveAmount = ({ navigation }) => {
   const [paymentRequest, setpaymentRequest] = useState();
@@ -36,13 +37,13 @@ const ReceiveAmount = ({ navigation }) => {
         try {
           clearInterval(interval);
           setSuccess(true);
-
           const serObjs = proofs.map((obj) => ({
             C: obj.C,
             amount: obj.amount,
             id: obj.id,
             secret: obj.secret,
           }));
+          await Promise.all(serObjs.map((obj) => addProofToDatabase(obj)));
           dispatch(addProofs(serObjs));
           setTimeout(() => {
             navigation.navigate('WalletHome');

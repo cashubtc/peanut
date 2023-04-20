@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { initWallet, wallet } from './mint';
 import MainNav from './nav/MainNav';
 import { store } from './store';
-import { initDatabase } from './utils/database';
+import { hydrateStoreFromDatabase, initDatabase } from './utils/database';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +21,7 @@ const App = () => {
       try {
         await initWallet();
         await initDatabase();
+        hydrateStoreFromDatabase();
         await loadAsync({
           "Montserrat-Regular": require("./assets/Montserrat-Regular.ttf"),
           "Montserrat-Bold": require("./assets/Montserrat-Bold.ttf"),
