@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "peanut-purse",
-    "slug": "peanut-purse",
+    "name": "peanut",
+    "slug": "peanut",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
