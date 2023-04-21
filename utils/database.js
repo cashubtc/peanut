@@ -35,7 +35,8 @@ export function initDatabase() {
 }
 
 export async function addProofToDatabase({ id, amount, secret, C }) {
-  const sql = 'INSERT OR REPLACE INTO proofs (id, amount, secret, C) VALUES (?, ?, ?, ?)';
+  const sql =
+    'INSERT OR REPLACE INTO proofs (id, amount, secret, C) VALUES (?, ?, ?, ?)';
   const params = [id, amount, secret, C];
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -71,3 +72,20 @@ export const hydrateStoreFromDatabase = async () => {
     );
   });
 };
+
+export function deleteProofsFromDb(ids) {
+  const stringifiedIds = ids.map((id) => `"${id}"`);
+  db.transaction((tx) => {
+    tx.executeSql(
+      `DELETE from proofs WHERE C in (${stringifiedIds})`,
+      [],
+      (_, result) => {
+        console.log(result);
+      },
+      (_, error) => {
+        console.log('Error querying users', error);
+        return false;
+      },
+    );
+  });
+}
