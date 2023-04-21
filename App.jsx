@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { initWallet } from './mint';
 import MainNav from './nav/MainNav';
-import { store } from './store';
+import { store } from './store/store';
 import { hydrateStoreFromDatabase, initDatabase } from './utils/database';
 
 SplashScreen.preventAutoHideAsync();

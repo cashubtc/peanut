@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
-import { store } from '../store';
-import { addProofs } from '../features/proofs/proofSlice';
+import { store } from '../store/store';
+import { hydrateProofs } from '../features/proofs/proofSlice';
 
 export const db = SQLite.openDatabase('pp.db');
 
@@ -63,7 +63,7 @@ export const hydrateStoreFromDatabase = async () => {
       [],
       (_, { rows: { _array } }) => {
         console.log(_array);
-        store.dispatch(addProofs(_array));
+        store.dispatch(hydrateProofs(_array));
       },
       (_, error) => {
         console.log('Error querying users', error);
@@ -74,10 +74,10 @@ export const hydrateStoreFromDatabase = async () => {
 };
 
 export function deleteProofsFromDb(ids) {
-  const stringifiedIds = ids.map((id) => `"${id}"`);
+  const formattedIds = ids.map((id) => `"${id}"`);
   db.transaction((tx) => {
     tx.executeSql(
-      `DELETE from proofs WHERE C in (${stringifiedIds})`,
+      `DELETE from proofs WHERE C in (${formattedIds})`,
       [],
       (_, result) => {
         console.log(result);
