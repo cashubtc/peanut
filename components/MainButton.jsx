@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const MainButton = ({ text, onPress, containerStyles, disabled, icon }) => (
+const MainButton = ({ text, onPress, containerStyles, disabled, icon, loading }) => (
   <Pressable
     onPress={onPress}
     style={({ pressed }) => [
@@ -42,7 +42,7 @@ const MainButton = ({ text, onPress, containerStyles, disabled, icon }) => (
     disabled={disabled}
   >
     {icon ? <Ionicons name={icon} /> : undefined}
-    <Text style={globalStyles.textBodyBold}>{text}</Text>
+    <Text style={globalStyles.textBodyBold}>{!loading ? text : 'Loading...'}</Text>
   </Pressable>
 );
 

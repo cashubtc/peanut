@@ -28,7 +28,6 @@ const SendScreen = ({ navigation }) => {
       timer = setTimeout(() => {
         try {
           const { amount } = decodeInvoice(input);
-          console.log(amount);
           if (amount / 1000 > balance) {
             throw new Error('Amount exceeds balance!');
           }
@@ -41,13 +40,6 @@ const SendScreen = ({ navigation }) => {
       clearTimeout(timer);
     };
   }, [input]);
-
-  // const send = async () => {
-  //   const { amount } = decodeInvoice(input);
-  //   const fee = await wallet.getFee(input);
-  //   const { send: toSend, returnChange } = await wallet.send((amount / 1000) + fee, proofs);
-  //   await wallet.payLnInvoice(input, toSend);
-  // };
 
   return (
     <View
