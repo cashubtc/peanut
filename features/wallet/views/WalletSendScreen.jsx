@@ -12,7 +12,7 @@ import { MainButton, MainInput } from '../../../components';
 import { decodeInvoice } from '../utils/lightning';
 import useBalance from '../../proofs/hooks/useBalance';
 
-const SendScreen = () => {
+const SendScreen = ({ navigation }) => {
   const [input, setInput] = useState('');
   const [error, setError] = useState();
   const [viewHeight, setViewHeight] = useState();
@@ -28,7 +28,8 @@ const SendScreen = () => {
       timer = setTimeout(() => {
         try {
           const { amount } = decodeInvoice(input);
-          if (amount > balance) {
+          console.log(amount);
+          if (amount / 1000 > balance) {
             throw new Error('Amount exceeds balance!');
           }
         } catch (e) {
@@ -41,12 +42,18 @@ const SendScreen = () => {
     };
   }, [input]);
 
+  // const send = async () => {
+  //   const { amount } = decodeInvoice(input);
+  //   const fee = await wallet.getFee(input);
+  //   const { send: toSend, returnChange } = await wallet.send((amount / 1000) + fee, proofs);
+  //   await wallet.payLnInvoice(input, toSend);
+  // };
+
   return (
     <View
       style={{ flex: 1 }}
       onLayout={(event) => {
         const { height } = event.nativeEvent.layout;
-        console.log(height);
         setViewHeight(height);
       }}
     >
@@ -71,7 +78,12 @@ const SendScreen = () => {
             <Text style={globalStyles.textBodyError}>{error.message}</Text>
           ) : undefined}
         </View>
-        <MainButton text="Next" />
+        <MainButton
+          text="Next"
+          onPress={() => {
+            navigation.navigate('Confirm', { invoice: input });
+          }}
+        />
         <View style={{ height: insets.bottom }} />
       </KeyboardAvoidingView>
     </View>
