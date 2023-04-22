@@ -7,11 +7,11 @@ import globalStyles from '../globalStyles';
 type MainButtonProps = {
   text: string,
   onPress: (event: GestureResponderEvent) => void,
-  containerStyles: ViewStyle,
-  disabled: boolean | undefined,
-  icon: keyof typeof Ionicons.glyphMap,
-  loading: boolean | undefined
-}
+  containerStyles?: ViewStyle,
+  disabled?: boolean,
+  icon?: keyof typeof Ionicons.glyphMap,
+  loading?: boolean
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +39,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const MainButton = ({ text, onPress, containerStyles, disabled, icon, loading }: MainButtonProps) => (
+const MainButton = ({ text,
+  onPress,
+  containerStyles,
+  disabled,
+  icon,
+  loading,
+}: MainButtonProps) => (
   <Pressable
     onPress={onPress}
     style={({ pressed }) => [

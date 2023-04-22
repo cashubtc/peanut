@@ -1,4 +1,4 @@
-import { KeyboardTypeOptions, Text, TextInput, TextStyle, ViewStyle } from 'react-native';
+import { KeyboardTypeOptions, TextInput, TextStyle, ViewStyle } from 'react-native';
 import React from 'react';
 import colors from '../colors';
 
@@ -7,8 +7,7 @@ type MainInputProps = {
   style: TextStyle | ViewStyle,
   placeholder: string,
   type: KeyboardTypeOptions
-
-}
+};
 
 const MainInput = ({ onChangeText, style, placeholder, type }: MainInputProps) => (
   <TextInput

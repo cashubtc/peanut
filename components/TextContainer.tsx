@@ -5,7 +5,7 @@ import globalStyles from '../globalStyles';
 
 type TextContainerProps = {
   text: string
-}
+};
 
 const styles = StyleSheet.create({
   container: {

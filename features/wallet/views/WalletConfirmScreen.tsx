@@ -1,33 +1,34 @@
 import { View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import globalStyles from '../../../globalStyles';
 import { MainButton, TextContainer } from '../../../components';
 import { decodeInvoice } from '../utils/lightning';
 import { wallet } from '../../../mint';
-import { accumulateProofs } from '../../proofs/utils/accumulateProofs';
+import { accumulateProofs } from '../../proofs/utils';
 import { addProofs, removeProofs } from '../../proofs/proofSlice';
+import { useProofs } from '../../proofs/hooks';
 
 const WalletConfirmScreen = ({ route, navigation }) => {
-  const [amount, setAmount] = useState();
-  const [fee, setFee] = useState();
-  const [memo, setMemo] = useState();
-  const [isLoading, setIsLoading] = useState();
+  const [amount, setAmount] = useState<number | null>();
+  const [fee, setFee] = useState<number | null>();
+  const [memo, setMemo] = useState<string | null>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
-  const proofs = useSelector((state) => state.proof.proofs);
+  const proofs = useProofs();
   const dispatch = useDispatch();
 
   const { invoice, address } = route.params || {};
 
   useEffect(() => {
     async function prep() {
-      const { amount, memo } = decodeInvoice(invoice);
-      setMemo(memo);
-      setAmount(amount / 1000);
-      const fee = await wallet.getFee(invoice);
-      setFee(fee);
+      const { amount: invoiceAmount, memo: invoiceMemo } = decodeInvoice(invoice);
+      setMemo(invoiceMemo);
+      setAmount(invoiceAmount / 1000);
+      const mintFee = await wallet.getFee(invoice);
+      setFee(mintFee);
     }
     prep();
   }, []);
