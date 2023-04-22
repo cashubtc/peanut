@@ -1,4 +1,4 @@
-# Peanut-Purse
+# Peanut
 A native Cashu Lightning Wallet.
 
 # Run Dev Environment
