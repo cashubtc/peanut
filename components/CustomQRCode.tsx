@@ -5,6 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../colors';
 import globalStyles from '../globalStyles';
 
+type CustomQRCodeProps = {
+  size: number | undefined,
+  value: string | undefined,
+  success: boolean | undefined
+}
+
 const styles = StyleSheet.create({
   container: {
     padding: 12,
@@ -18,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const CustomQRCode = ({ size, value, success }) => (
+const CustomQRCode = ({ size, value, success }: CustomQRCodeProps) => (
   <View
     style={[
       value ? styles.container : styles.containerPlaceholder,

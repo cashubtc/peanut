@@ -1,7 +1,7 @@
 import { decode } from 'light-bolt11-decoder';
 import { bolt11Regex } from '../../../regex';
 
-export function decodeInvoice(invoice) {
+export function decodeInvoice(invoice: string): {amount: number, memo: string} {
   if (!invoice.match(bolt11Regex)) {
     throw new Error('Not a valid lightning invoice');
   }

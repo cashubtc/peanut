@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Proof } from '@cashu/cashu-ts';
 
-type serializedProof = {
+export type serializedProof = {
   id: string;
   secret: string;
   amount: number;
