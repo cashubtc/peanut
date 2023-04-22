@@ -2,6 +2,8 @@ import { View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RouteProp } from '@react-navigation/native';
 import globalStyles from '../../../globalStyles';
 import { MainButton, TextContainer } from '../../../components';
 import { decodeInvoice } from '../utils/lightning';
@@ -9,8 +11,18 @@ import { wallet } from '../../../mint';
 import { accumulateProofs } from '../../proofs/utils';
 import { addProofs, removeProofs } from '../../proofs/proofSlice';
 import { useProofs } from '../../proofs/hooks';
+import type { SendStackParamList } from '../nav/types';
+import { MainStackParamList } from '../../../nav/types';
 
-const WalletConfirmScreen = ({ route, navigation }) => {
+type WalletCornfirmScreenProps = {
+  navigation: NativeStackNavigationProp<MainStackParamList, 'WalletSend'>;
+  route: RouteProp<SendStackParamList, 'Confirm'>;
+};
+
+const WalletConfirmScreen = ({
+  route,
+  navigation,
+}: WalletCornfirmScreenProps) => {
   const [amount, setAmount] = useState<number | null>();
   const [fee, setFee] = useState<number | null>();
   const [memo, setMemo] = useState<string | null>();
