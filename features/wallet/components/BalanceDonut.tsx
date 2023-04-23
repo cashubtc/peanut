@@ -1,4 +1,11 @@
-import { Canvas, Skia, runTiming, useValue } from '@shopify/react-native-skia';
+import {
+  Canvas,
+  Skia,
+  Text,
+  runTiming,
+  useFont,
+  useValue,
+} from '@shopify/react-native-skia';
 import React, { FC, useEffect } from 'react';
 
 import { StyleSheet, View } from 'react-native';
@@ -15,7 +22,7 @@ const style = StyleSheet.create({
   },
 });
 
-const STROKE_WIDTH = 30;
+const STROKE_WIDTH = 20;
 
 const BalanceDonut: FC<BalanceDonutProps> = ({ radius }) => {
   const animationState = useValue(0);
@@ -40,12 +47,20 @@ const BalanceDonut: FC<BalanceDonutProps> = ({ radius }) => {
   path.addCircle(radius, radius, innerRadius);
 
   const total = balances.reduce((a, c) => a + c, 0);
+  const targetText = `${total} SATS`;
+  const font = useFont(require('../../../assets/Montserrat-Bold.ttf'), 32);
+
+  if (!font) {
+    return <View />;
+  }
+  const textWidth = font.getTextWidth(targetText);
 
   return (
     <View style={style.container}>
       <Canvas style={style.container}>
         {balances.map((amount, index) => {
-          const current = balances.slice(0, index).reduce((a, c) => a + c, 0) / total;
+          const current =
+            balances.slice(0, index).reduce((a, c) => a + c, 0) / total;
           return (
             <BalanceDonutPath
               path={path}
@@ -58,6 +73,14 @@ const BalanceDonut: FC<BalanceDonutProps> = ({ radius }) => {
             />
           );
         })}
+        <Text
+          x={innerRadius - textWidth / 2}
+          font={font}
+          y={radius + STROKE_WIDTH}
+          text={targetText}
+          opacity={animationState}
+          color="white"
+        />
       </Canvas>
     </View>
   );

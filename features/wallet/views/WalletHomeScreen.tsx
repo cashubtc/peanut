@@ -38,9 +38,8 @@ const WalletHomeScreen = ({ navigation }: WalletHomeScreenProps) => {
   return (
     <View style={[globalStyles.screenContainer, { paddingHorizontal: 0 }]}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <BalanceContainer />
-        <View style={{ width: device.width - 50, height: device.width - 50 }}>
-          <BalanceDonut radius={(device.width - 50) / 2} />
+        <View style={{ width: device.width - 48, height: device.width - 48 }}>
+          <BalanceDonut radius={(device.width - 48) / 2} />
         </View>
       </View>
       <View style={{ flexDirection: 'row' }}>
