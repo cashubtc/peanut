@@ -33,7 +33,8 @@
     "react-qr-code": "^2.0.11",
     "react-redux": "^8.0.5",
     "text-encoding-polyfill": "^0.6.7",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "@shopify/react-native-skia": "0.1.172"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

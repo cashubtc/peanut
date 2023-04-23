@@ -16,14 +16,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "space.cashu.peanut"
+      "bundleIdentifier": "space.cashu.peanut",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "space.cashu.peanut"
+      "package": "space.cashu.peanut",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
