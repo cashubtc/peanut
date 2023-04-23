@@ -2,8 +2,8 @@ import { View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RouteProp } from '@react-navigation/native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { CompositeScreenProps } from '@react-navigation/native';
 import globalStyles from '../../../globalStyles';
 import { MainButton, TextContainer } from '../../../components';
 import { decodeInvoice } from '../utils/lightning';
@@ -14,15 +14,15 @@ import { useProofs } from '../../proofs/hooks';
 import type { SendStackParamList } from '../nav/types';
 import { MainStackParamList } from '../../../nav/types';
 
-type WalletCornfirmScreenProps = {
-  navigation: NativeStackNavigationProp<MainStackParamList, 'WalletSend'>;
-  route: RouteProp<SendStackParamList, 'Confirm'>;
-};
+type WalletConfirmScreenProps = CompositeScreenProps<
+NativeStackScreenProps<SendStackParamList, 'Confirm'>,
+NativeStackScreenProps<MainStackParamList>
+>;
 
 const WalletConfirmScreen = ({
   route,
   navigation,
-}: WalletCornfirmScreenProps) => {
+}: WalletConfirmScreenProps) => {
   const [amount, setAmount] = useState<number | null>();
   const [fee, setFee] = useState<number | null>();
   const [memo, setMemo] = useState<string | null>();
@@ -44,13 +44,6 @@ const WalletConfirmScreen = ({
     }
     prep();
   }, []);
-
-  // const send = async () => {
-  //   const { amount } = decodeInvoice(input);
-  //   const fee = await wallet.getFee(input);
-  //   const { send: toSend, returnChange } = await wallet.send((amount / 1000) + fee, proofs);
-  //   await wallet.payLnInvoice(input, toSend);
-  // };
 
   const sendHandler = async () => {
     setIsLoading(true);
