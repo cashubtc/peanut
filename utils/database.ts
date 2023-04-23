@@ -22,11 +22,12 @@ export function initDatabase() {
           null,
           () => {
             console.log('DB init success!');
-            resolve();
+            resolve(null);
           },
           (_, error) => {
             console.error(error);
             reject();
+            return true;
           },
         );
       });
@@ -35,8 +36,7 @@ export function initDatabase() {
 }
 
 export async function addProofToDatabase({ id, amount, secret, C }) {
-  const sql =
-    'INSERT OR REPLACE INTO proofs (id, amount, secret, C) VALUES (?, ?, ?, ?)';
+  const sql = 'INSERT OR REPLACE INTO proofs (id, amount, secret, C) VALUES (?, ?, ?, ?)';
   const params = [id, amount, secret, C];
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -45,11 +45,12 @@ export async function addProofToDatabase({ id, amount, secret, C }) {
         params,
         () => {
           console.log('Successfully added to DB');
-          resolve();
+          resolve(null);
         },
         (_, error) => {
           console.error(error);
           reject(error);
+          return true;
         },
       );
     });

@@ -7,16 +7,14 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import globalStyles from '../../../globalStyles';
 import colors from '../../../colors';
 import BalanceContainer from '../components/BalanceContainer';
 import { MainStackParamList } from '../../../nav/types';
 import BalanceDonut from '../components/BalanceDonut';
 
-type WalletHomeScreenProps = {
-  navigation: NativeStackNavigationProp<MainStackParamList, 'WalletHome'>;
-};
+type WalletHomeScreenProps = NativeStackScreenProps<MainStackParamList, 'WalletHome'>;
 
 const styles = StyleSheet.create({
   mainButton: {

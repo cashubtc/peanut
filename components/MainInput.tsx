@@ -4,8 +4,8 @@ import colors from '../colors';
 
 type MainInputProps = {
   onChangeText: (text: string) => void,
-  style: TextStyle | ViewStyle,
-  placeholder: string,
+  style?: TextStyle | ViewStyle,
+  placeholder?: string,
   type: KeyboardTypeOptions
 };
 

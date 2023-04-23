@@ -7,8 +7,9 @@ import {
 import colors from '../colors';
 import { WalletSendNavigator } from '../features/wallet';
 import globalStyles from '../globalStyles';
+import type { MainStackParamList } from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MainStackParamList>();
 
 const MainNav = () => (
   <Stack.Navigator

@@ -7,22 +7,31 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import globalStyles from '../../../globalStyles';
 import { MainButton, MainInput } from '../../../components';
 import { decodeInvoice } from '../utils/lightning';
 import useBalance from '../../proofs/hooks/useBalance';
+import { SendStackParamList } from '../nav/types';
+import type { MainStackParamList } from '../../../nav/types';
 
-const SendScreen = ({ navigation }) => {
+type SendScreenProps = CompositeScreenProps<
+NativeStackScreenProps<SendStackParamList, 'Destination'>,
+NativeStackScreenProps<MainStackParamList>
+>;
+
+const SendScreen = ({ navigation }: SendScreenProps) => {
   const [input, setInput] = useState('');
-  const [error, setError] = useState();
-  const [viewHeight, setViewHeight] = useState();
+  const [error, setError] = useState<Error | null>();
+  const [viewHeight, setViewHeight] = useState<number | null>();
 
   const balance = useBalance();
   const insets = useSafeAreaInsets();
   const device = useWindowDimensions();
 
   useEffect(() => {
-    setError();
+    setError(null);
     let timer;
     if (input.length > 0) {
       timer = setTimeout(() => {
@@ -65,7 +74,7 @@ const SendScreen = ({ navigation }) => {
               Invoice / Lightning Address
             </Text>
           </View>
-          <MainInput onChangeText={setInput} />
+          <MainInput onChangeText={setInput} type="default" />
           {error ? (
             <Text style={globalStyles.textBodyError}>{error.message}</Text>
           ) : undefined}
