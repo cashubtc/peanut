@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "peanut",
+    "name": "Peanut - Cashu Wallet",
     "slug": "peanut",
     "version": "0.1.0",
     "orientation": "portrait",
@@ -15,16 +15,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "space.cashu.peanut"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "space.cashu.peanut"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0968a377-6f05-4299-a12c-563ddc84b0f2"
+      }
     }
   }
 }

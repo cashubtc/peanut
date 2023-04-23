@@ -7,7 +7,7 @@ const globalStyles = StyleSheet.create({
     paddingHorizontal: 12,
     backgroundColor: colors.slate800,
     alignItems: 'center',
-    paddingTop: 20
+    paddingTop: 20,
   },
   textBody: {
     fontFamily: 'Montserrat-Regular',

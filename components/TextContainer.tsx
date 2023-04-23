@@ -3,6 +3,10 @@ import React from 'react';
 import colors from '../colors';
 import globalStyles from '../globalStyles';
 
+type TextContainerProps = {
+  text: string
+};
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -13,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const TextContainer = ({ text }) => (
+const TextContainer = ({ text }: TextContainerProps) => (
   <View style={styles.container}>
     <Text style={globalStyles.textBodyBold}>{text}</Text>
   </View>

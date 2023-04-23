@@ -1,8 +1,17 @@
-import { Text, Pressable, StyleSheet } from 'react-native';
+import { Text, Pressable, StyleSheet, GestureResponderEvent, ViewStyle } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React from 'react';
 import colors from '../colors';
 import globalStyles from '../globalStyles';
+
+type MainButtonProps = {
+  text: string,
+  onPress: (event: GestureResponderEvent) => void,
+  containerStyles?: ViewStyle,
+  disabled?: boolean,
+  icon?: keyof typeof Ionicons.glyphMap,
+  loading?: boolean
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +39,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const MainButton = ({ text, onPress, containerStyles, disabled, icon, loading }) => (
+const MainButton = ({ text,
+  onPress,
+  containerStyles,
+  disabled,
+  icon,
+  loading,
+}: MainButtonProps) => (
   <Pressable
     onPress={onPress}
     style={({ pressed }) => [

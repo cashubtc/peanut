@@ -1,43 +1,49 @@
 import { View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { CompositeScreenProps } from '@react-navigation/native';
 import globalStyles from '../../../globalStyles';
 import { MainButton, TextContainer } from '../../../components';
 import { decodeInvoice } from '../utils/lightning';
 import { wallet } from '../../../mint';
-import { accumulateProofs } from '../../proofs/utils/accumulateProofs';
+import { accumulateProofs } from '../../proofs/utils';
 import { addProofs, removeProofs } from '../../proofs/proofSlice';
+import { useProofs } from '../../proofs/hooks';
+import type { SendStackParamList } from '../nav/types';
+import { MainStackParamList } from '../../../nav/types';
 
-const WalletConfirmScreen = ({ route, navigation }) => {
-  const [amount, setAmount] = useState();
-  const [fee, setFee] = useState();
-  const [memo, setMemo] = useState();
-  const [isLoading, setIsLoading] = useState();
+type WalletConfirmScreenProps = CompositeScreenProps<
+NativeStackScreenProps<SendStackParamList, 'Confirm'>,
+NativeStackScreenProps<MainStackParamList>
+>;
+
+const WalletConfirmScreen = ({
+  route,
+  navigation,
+}: WalletConfirmScreenProps) => {
+  const [amount, setAmount] = useState<number | null>();
+  const [fee, setFee] = useState<number | null>();
+  const [memo, setMemo] = useState<string | null>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
-  const proofs = useSelector((state) => state.proof.proofs);
+  const proofs = useProofs();
   const dispatch = useDispatch();
 
   const { invoice, address } = route.params || {};
 
   useEffect(() => {
     async function prep() {
-      const { amount, memo } = decodeInvoice(invoice);
-      setMemo(memo);
-      setAmount(amount / 1000);
-      const fee = await wallet.getFee(invoice);
-      setFee(fee);
+      const { amount: invoiceAmount, memo: invoiceMemo } = decodeInvoice(invoice);
+      setMemo(invoiceMemo);
+      setAmount(invoiceAmount / 1000);
+      const mintFee = await wallet.getFee(invoice);
+      setFee(mintFee);
     }
     prep();
   }, []);
-
-  // const send = async () => {
-  //   const { amount } = decodeInvoice(input);
-  //   const fee = await wallet.getFee(input);
-  //   const { send: toSend, returnChange } = await wallet.send((amount / 1000) + fee, proofs);
-  //   await wallet.payLnInvoice(input, toSend);
-  // };
 
   const sendHandler = async () => {
     setIsLoading(true);

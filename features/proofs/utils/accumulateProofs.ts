@@ -1,6 +1,6 @@
 import { Proof } from '@cashu/cashu-ts';
 
-export function accumulateProofs(
+function accumulateProofs(
   proofs: Proof[],
   requiredAmount: number,
   strategy: 'middle' | 'ascending' | 'descending',
@@ -24,7 +24,7 @@ export function accumulateProofs(
       break;
     }
     case 'ascending': {
-      for (let i = 0; i < temp.length; i++) {
+      for (let i = 0; i < temp.length; i += 1) {
         total += temp[i].amount;
         result.push(temp[i]);
         if (total >= requiredAmount) {
@@ -34,13 +34,17 @@ export function accumulateProofs(
       break;
     }
     case 'descending': {
-      for (let i = 0; i < temp.length; i++) {
+      for (let i = 0; i < temp.length; i += 1) {
         total += temp[temp.length - (1 + i)].amount;
         result.push(temp[temp.length - (1 + i)]);
         if (total >= requiredAmount) {
           break;
         }
       }
+      break;
+    }
+    default: {
+      throw new Error('No valid strategy was provided');
     }
   }
   return {
@@ -49,3 +53,5 @@ export function accumulateProofs(
     excess: total - requiredAmount,
   };
 }
+
+export default accumulateProofs;
